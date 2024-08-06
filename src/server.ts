@@ -15,6 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", routes);
 app.use(express.static(path.join(__dirname, "../public")));
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    message: "Health OK",
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
