@@ -2,6 +2,7 @@ import express from "express";
 import db from "@/utils/database";
 import routes from "@/routes";
 import bodyParser from "body-parser";
+import './utils/module-alias'
 
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
