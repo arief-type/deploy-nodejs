@@ -1,15 +1,15 @@
 {
   "name": "middleware-multer",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "_moduleAliases": {
     "@": "dist"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "ts-node dist/server.js",
-    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts"
+    "start": "ts-node dist/index.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts"
   },
   "author": "",
   "license": "ISC",
