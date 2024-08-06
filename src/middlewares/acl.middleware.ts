@@ -1,4 +1,4 @@
-import { IReqUser } from "@/utils/interfaces";
+import { IReqUser } from "../utils/interfaces";
 import { NextFunction, Request, Response } from "express";
 
 export default (roles: string[]) =>
