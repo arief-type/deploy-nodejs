@@ -4,6 +4,7 @@ import uploadMiddleware from "./middlewares/upload.middleware";
 import uploadController from "./controllers/upload.controller";
 import productsController from "./controllers/products.controller";
 import categoriesController from "./controllers/categories.controller";
+import ordersController from "./controllers/orders.controller";
 import authController from "./controllers/auth.controller";
 import authMiddleware from "./middlewares/auth.middleware";
 import aclMiddleware from "./middlewares/acl.middleware";
@@ -26,6 +27,10 @@ router.post("/categories", categoriesController.create);
 router.get("/categories/:id", categoriesController.findOne);
 router.put("/categories/:id", categoriesController.update);
 router.delete("/categories/:id", categoriesController.delete);
+
+router.get("/orders", authMiddleware, ordersController.findAll);
+router.post("/orders", authMiddleware, ordersController.create);
+
 
 router.post("/auth/login", authController.login);
 router.post("/auth/register", authController.register);

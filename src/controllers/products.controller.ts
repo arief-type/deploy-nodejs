@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ProductsModel from "../models/products.model";
 import * as Yup from "yup";
+import { IPaginationQuery } from "@/utils/interfaces";
 
 const createValidationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -11,11 +12,11 @@ const createValidationSchema = Yup.object().shape({
   category: Yup.string().required(),
 })
 
-interface IPaginationQuery {
-  limit: number;
-  page: number;
-  search?: string;
-}
+// interface IPaginationQuery {
+//   limit: number;
+//   page: number;
+//   search?: string;
+// }
 
 export default {
   async create(req: Request, res: Response) {
