@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import ProductsModel from "../models/products.model";
 import * as Yup from "yup";
-import { IPaginationQuery } from "@/utils/interfaces";
+import { IPaginationQuery } from "../utils/interfaces";
 
 const createValidationSchema = Yup.object().shape({
   name: Yup.string().required(),

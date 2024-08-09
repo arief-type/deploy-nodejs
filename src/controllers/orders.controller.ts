@@ -1,7 +1,7 @@
-import OrdersModel from "@/models/orders.model";
-import ProductsModel from "@/models/products.model";
-import UserModel from "@/models/user.model";
-import { IPaginationQuery, IReqUser } from "@/utils/interfaces";
+import OrdersModel from "../models/orders.model";
+import ProductsModel from "../models/products.model";
+import UserModel from "../models/user.model";
+import { IPaginationQuery, IReqUser } from "../utils/interfaces";
 import { Request, Response } from "express";
 import * as Yup from "yup";
 

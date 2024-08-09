@@ -1,15 +1,16 @@
 {
   "name": "middleware-multer",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "src/server.ts",
   "_moduleAliases": {
     "@": "dist"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && copyfiles -u 1 src/utils/mail/templates/*.ejs dist",
-    "start": "tsc && node dist/server.js",
-    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts"
+    "start:another": "tsc && node dist/server.js",
+    "start": "ts-node src/server.js",
+    "dev": "ts-node-dev src/server.ts"
   },
   "author": "",
   "license": "ISC",
@@ -41,7 +42,6 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6",
-    "tsconfig-paths": "^4.2.0"
+    "@types/jsonwebtoken": "^9.0.6"
   }
 }

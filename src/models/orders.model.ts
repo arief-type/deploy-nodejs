@@ -1,4 +1,4 @@
-import mail from "@/utils/mail";
+import mail from "../utils/mail";
 import mongoose from "mongoose";
 import UserModel from "./user.model";
 
