@@ -34,10 +34,8 @@ const orderValidationSchema = Yup.object().shape({
 export default {
   async create(req: Request, res: Response) {
     try {
-      // Validasi data menggunakan Yup
       await orderValidationSchema.validate(req.body, { abortEarly: false });
 
-      // Ambil data dari body request
       const { orderItems, grandTotal, status } = req.body;
       const userid = (req as IReqUser).user.id;
 
@@ -75,16 +73,6 @@ export default {
         })
       );
 
-      //   // Hitung grandTotal secara otomatis jika tidak disediakan
-        // const computedGrandTotal = updatedOrderItems.reduce(
-        //   (total, item) => total + item.price * item.quantity,
-        //   0
-        // );
-
-      //   // Jika grandTotal tidak disediakan atau berbeda dari yang dihitung, gunakan nilai yang dihitung
-        // const finalGrandTotal = grandTotal || computedGrandTotal;
-
-      //   // Buat instance baru dari model Order
         const newOrder = new OrdersModel({
           grandTotal: grandTotal,
           orderItems: updatedOrderItems,
@@ -92,29 +80,19 @@ export default {
           status,
         });
 
-      //   // Simpan order ke database
         const savedOrder = await newOrder.save();
 
-      // Kirim response sukses
         res.status(201).json({
           message: "Order created successfully",
           order: savedOrder,
         });
-      // res.status(201).json({
-      //   message: "Order created successfully",
-      //   order: "success order",
-      //   body: req.body,
-      //   updatedOrderItems,
-      //   historyQuantity,
-      // });
+
     } catch (error) {
       if (error instanceof Error) {
-        // Jika error adalah instance dari Error
         if (error.name === "ValidationError") {
-          // Jika validasi gagal, kirim response dengan kesalahan validasi
           res.status(400).json({
             message: "Validation failed",
-            errors: (error as any).errors, // Type assertion untuk akses errors
+            errors: (error as any).errors,
           });
         } else {
           console.error("Error creating order:", error);
@@ -124,7 +102,6 @@ export default {
           });
         }
       } else {
-        // Jika error bukan instance dari Error
         res.status(500).json({
           message: "Internal server error",
           error: "An unknown error occurred",
@@ -138,15 +115,15 @@ export default {
         const {
           limit = 10,
           page = 1,
-          search = "",
+          // search = "",
         } = req.query as unknown as IPaginationQuery;
 
         const query = { createdBy: userid };
-        if (search) {
-          Object.assign(query, {
-            name: { $regex: search, $options: "i" },
-          });
-        }
+        // if (search) {
+        //   Object.assign(query, {
+        //     name: { $regex: search, $options: "i" },
+        //   });
+        // }
         
         const result = await OrdersModel.find(query).limit(limit).skip((page - 1) * limit).sort({ createdAt: -1 });
 

@@ -2,6 +2,19 @@
 
 This project is a comprehensive e-commerce API built with Express.js and TypeScript. It provides a robust backend solution for managing an online store, including user authentication, product management, and order processing. The API is designed to handle various e-commerce functionalities such as product CRUD operations, user account management, and making order, all while leveraging the type safety and modern features offered by TypeScript.
 
+
+## Table of Contents
+1. [Introduction](#introduction) 
+2.  [Deployment](#deployment) 
+3. [Running Locally](#running-locally) 
+4. [API Documentation](#api-documentation) 
+	- [Auth](#authentication) 
+	- [Products](#products)
+	-  [Categories](#categories)
+	- [Orders](#orders)
+	- [Uploads](#uploads)
+5.  [Feedback](#feedback) 
+
 ## Deployment
 
 The project is currently deployed and available online. You can access the live application at :
@@ -224,6 +237,11 @@ Authorization: Bearer <your-jwt-token>
 -   **Endpoint:** `/products`
 -   **Method:** `GET`
 -   **Description:** Retrieve a list of all products.
+- **Query Parameters:**
+
+	-   `page` (optional): The page number for pagination (default is `1`).
+	-   `limit` (optional): The number of products per page (default is `10`).
+	-   `search` (optional): A search term to filter products by name.
 -   **Response:**
     -   **Status Code:** `200 OK`
     -   **Body:**
@@ -552,6 +570,241 @@ Authorization: Bearer <your-jwt-token>
         "__v": 0
     },
     "message": "Success delete product"
+}
+```
+
+## Orders
+
+#### 1. **Get All Orders**
+
+-   **Endpoint:** `/orders`
+-   **Method:** `GET`
+-   **Description:** Retrieve a list of all orders. This endpoint requires authentication.
+-   **Request Headers:**
+    -   `Authorization: Bearer <your-jwt-token>`
+-   **Query Parameters:**
+
+	-   `page` (optional): The page number for pagination (default is `1`).
+	-   `limit` (optional): The number of products per page (default is `10`).
+-   **Response:**
+    -   **Status Code:** `200 OK`
+    -   **Body:**
+ ```bash
+{
+    "data": [
+        {
+            "_id": "66b3fc160fc63eb1ff2ac849",
+            "grandTotal": 100000,
+            "orderItems": [
+                {
+                    "name": "wifi coffee",
+                    "productId": "66a447259d875f425b18f3b5",
+                    "price": 10000,
+                    "quantity": 2,
+                    "_id": "66b3fc160fc63eb1ff2ac84a"
+                },
+                {
+                    "name": "internet coffee",
+                    "productId": "66a458718f3a5aced5c4f931",
+                    "price": 10000,
+                    "quantity": 1,
+                    "_id": "66b3fc160fc63eb1ff2ac84b"
+                }
+            ],
+            "createdBy": "66b231e603564da8881b1e0e",
+            "status": "pending",
+            "__v": 0
+        },
+        {
+            "_id": "66b4053984da03ee839c8fb0",
+            "grandTotal": 100000,
+            "orderItems": [
+                {
+                    "name": "wifi coffee",
+                    "productId": "66a447259d875f425b18f3b5",
+                    "price": 10000,
+                    "quantity": 3,
+                    "_id": "66b4053984da03ee839c8fb1"
+                },
+                {
+                    "name": "internet coffee",
+                    "productId": "66a458718f3a5aced5c4f931",
+                    "price": 10000,
+                    "quantity": 2,
+                    "_id": "66b4053984da03ee839c8fb2"
+                }
+            ],
+            "createdBy": "66b231e603564da8881b1e0e",
+            "status": "pending",
+            "__v": 0
+        }
+    ],
+    "message": "Success get all orders",
+    "page": 1,
+    "limit": 10,
+    "total": 2,
+    "totalPages": 1
+}
+```
+
+#### 2. **Create Order**
+
+-   **Endpoint:** `/orders`
+-   **Method:** `POST`
+-   **Description:** Create a new order. This endpoint requires authentication.
+-   **Request Headers:**
+    -   `Authorization: Bearer <your-jwt-token>`
+-   **Request Body:**
+ ```bash
+{
+"grandTotal":  40000,
+"orderItems":  [
+{
+	"productId":  "66a447259d875f425b18f3b5",
+	"name":  "wifi coffee",
+	"price":  10000,
+	"quantity":  2
+},
+{
+	"productId":  "66a458718f3a5aced5c4f931",
+	"name":  "internet coffee",
+	"price":  10000,
+	"quantity":  2
+}
+],
+"status":  "pending"
+}
+```
+
+**Response:**
+
+-   **Status Code:** `201 Created`
+-   **Body:**
+ ```bash
+{
+    "message": "Order created successfully",
+    "order": {
+        "grandTotal": 40000,
+        "orderItems": [
+            {
+                "name": "wifi coffee",
+                "productId": "66a447259d875f425b18f3b5",
+                "price": 10000,
+                "quantity": 2,
+                "_id": "66b6e0f0b070a6066d6dabfd"
+            },
+            {
+                "name": "internet coffee",
+                "productId": "66a458718f3a5aced5c4f931",
+                "price": 10000,
+                "quantity": 2,
+                "_id": "66b6e0f0b070a6066d6dabfe"
+            }
+        ],
+        "createdBy": "66b231e603564da8881b1e0e",
+        "status": "pending",
+        "_id": "66b6e0f0b070a6066d6dabfc",
+        "__v": 0
+    }
+}
+```
+## Uploads
+#### 1. **Upload Single File**
+
+-   **Endpoint:** `/upload`
+-   **Method:** `POST`
+-   **Description:** Upload a single file. 
+-   **Request Body:**
+    -   Form-data with a file field named `file`.
+-   **Response:**
+
+-   **Status Code:** `200 OK`
+-   **Body:**
+```bash
+{
+    "message": "File uploaded",
+    "data": {
+        "asset_id": "42c948633d53fa43ea1267301eeaa863",
+        "public_id": "a9wxphtrwlrryd0guczr",
+        "version": 1723262276,
+        "version_id": "8ff92f578eec8f38f0ba363f196ee693",
+        "signature": "9a52ca91c05b4fadfe682c0ee76e6a8d422b25c4",
+        "width": 1280,
+        "height": 720,
+        "format": "jpg",
+        "resource_type": "image",
+        "created_at": "2024-08-10T03:57:56Z",
+        "tags": [],
+        "bytes": 169463,
+        "type": "upload",
+        "etag": "9e3dd06828a7254c5f916fe6145ecb79",
+        "placeholder": false,
+        "url": "http://res.cloudinary.com/dmvigke9d/image/upload/v1723262276/a9wxphtrwlrryd0guczr.jpg",
+        "secure_url": "https://res.cloudinary.com/dmvigke9d/image/upload/v1723262276/a9wxphtrwlrryd0guczr.jpg",
+        "folder": "",
+        "api_key": "438744581893554"
+    }
+}
+```
+
+#### 2. **Upload Multiple Files**
+
+-   **Endpoint:** `/uploads`
+-   **Method:** `POST`
+-   **Description:** Upload multiple files
+-   **Request Body:**
+    -   Form-data with multiple files under the field name `files`.
+-   **Response:**
+
+-   **Status Code:** `200 OK`
+-   **Body:**
+```bash
+{
+    "message": "Files uploaded",
+    "data": [
+        {
+            "asset_id": "bfb24f73a61310657f023abf233147d1",
+            "public_id": "lddw1hv08cviqysfu98p",
+            "version": 1723262748,
+            "version_id": "082757d97e7f57086de43800626e1e99",
+            "signature": "48ca79f0f92d512aca918a0b5d3c9241ae1dcb53",
+            "width": 1280,
+            "height": 720,
+            "format": "jpg",
+            "resource_type": "image",
+            "created_at": "2024-08-10T04:05:48Z",
+            "tags": [],
+            "bytes": 120826,
+            "type": "upload",
+            "etag": "07d97078c4b5efa423a42227bf4f76ad",
+            "placeholder": false,
+            "url": "http://res.cloudinary.com/dmvigke9d/image/upload/v1723262748/lddw1hv08cviqysfu98p.jpg",
+            "secure_url": "https://res.cloudinary.com/dmvigke9d/image/upload/v1723262748/lddw1hv08cviqysfu98p.jpg",
+            "folder": "",
+            "api_key": "438744581893554"
+        },
+        {
+            "asset_id": "79db4010411e03edcd6ad64fb69d7944",
+            "public_id": "r5mpmxpw9dynqhbgdlva",
+            "version": 1723262748,
+            "version_id": "082757d97e7f57086de43800626e1e99",
+            "signature": "bd3e04e701680d1f332769bea643b5cf229f0b61",
+            "width": 1599,
+            "height": 899,
+            "format": "jpg",
+            "resource_type": "image",
+            "created_at": "2024-08-10T04:05:48Z",
+            "tags": [],
+            "bytes": 195958,
+            "type": "upload",
+            "etag": "f28b6f9a1263ed790affb83736ffcf07",
+            "placeholder": false,
+            "url": "http://res.cloudinary.com/dmvigke9d/image/upload/v1723262748/r5mpmxpw9dynqhbgdlva.jpg",
+            "secure_url": "https://res.cloudinary.com/dmvigke9d/image/upload/v1723262748/r5mpmxpw9dynqhbgdlva.jpg",
+            "folder": "",
+            "api_key": "438744581893554"
+        }
+    ]
 }
 ```
 
