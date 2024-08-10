@@ -1,5 +1,3 @@
-  
-
 # E-Commerce API with Express and TypeScript
 
 This project is a comprehensive e-commerce API built with Express.js and TypeScript. It provides a robust backend solution for managing an online store, including user authentication, product management, and order processing. The API is designed to handle various e-commerce functionalities such as product CRUD operations, user account management, and making order, all while leveraging the type safety and modern features offered by TypeScript.
@@ -219,7 +217,343 @@ Authorization: Bearer <your-jwt-token>
     }
 }
 ```
+## Products
 
+#### 1. **Get All Products**
+
+-   **Endpoint:** `/products`
+-   **Method:** `GET`
+-   **Description:** Retrieve a list of all products.
+-   **Response:**
+    -   **Status Code:** `200 OK`
+    -   **Body:**
+ ```bash
+{
+    "data": [
+        {
+            "_id": "66a458718f3a5aced5c4f931",
+            "name": "internet coffee",
+            "description": "minuman",
+            "images": [
+                "coffee.png"
+            ],
+            "price": 10000,
+            "qty": 197,
+            "category": {
+                "_id": "66a21e463b2ea2cf2b1a2bb4",
+                "name": "coffee",
+                "createdAt": "2024-07-25T09:43:34.282Z",
+                "updatedAt": "2024-07-25T09:43:34.282Z",
+                "__v": 0
+            },
+            "createdAt": "2024-07-27T02:16:17.638Z",
+            "updatedAt": "2024-08-07T23:37:29.800Z",
+            "slug": "internet-coffee",
+            "__v": 0
+        },
+        {
+            "_id": "66a4476e9d875f425b18f3ba",
+            "name": "Kemeja Variant 1",
+            "description": "Deskripsi kemeja variant 1",
+            "images": [
+                "https://res.cloudinary.com/five-code/image/upload/v1718805645/fxuurm45mt5talry7a29.png",
+                "sepatu2.jpg",
+                "sepatu3.jpg"
+            ],
+            "price": 20000,
+            "qty": 120,
+            "slug": "variant-1-slug",
+            "category": null,
+            "createdAt": "2024-07-27T01:03:42.988Z",
+            "updatedAt": "2024-07-27T01:03:42.988Z",
+            "__v": 0
+        }
+    ],
+    "message": "Success get all products",
+    "page": 1,
+    "limit": 2,
+    "total": 58,
+    "totalPages": 29
+}
+```
+#### 2. **Create Product**
+
+-   **Endpoint:** `/products`
+-   **Method:** `POST`
+-   **Description:** Create a new product.
+-   **Request Body:**
+ ```bash
+{
+"name":  "indomaret coffee",
+"description":  "minuman",
+"images":  ["photo-coffee.png"],
+"price":  10000,
+"qty":  200,
+"category":  "66a21e463b2ea2cf2b1a2bb4"
+}
+```
+
+**Response:**
+
+-   **Status Code:** `201 Created`
+-   **Body:**
+ ```bash
+{
+"name":  "indomaret coffee",
+"description":  "minuman",
+"images":  ["photo-coffee.png"],
+"price":  10000,
+"qty":  200,
+"category":  "66a21e463b2ea2cf2b1a2bb4"
+}
+```
+
+#### 3. **Get Product by ID**
+
+-   **Endpoint:** `/products/:id`
+-   **Method:** `GET`
+-   **Description:** Retrieve details of a specific product by ID.
+-   **URL Parameters:**
+    -   `id` (required): The ID of the product.
+-   **Response:**
+    -   **Status Code:** `200 OK`
+    -   **Body:**
+   ```bash
+{
+    "data": {
+        "_id": "66b69a7010d8375133d533f5",
+        "name": "indomaret coffee",
+        "description": "minuman",
+        "images": [
+            "photo-coffee.png"
+        ],
+        "price": 10000,
+        "qty": 200,
+        "category": "66a21e463b2ea2cf2b1a2bb4",
+        "createdAt": "2024-08-09T22:38:40.544Z",
+        "updatedAt": "2024-08-09T22:38:40.544Z",
+        "slug": "indomaret-coffee",
+        "__v": 0
+    },
+    "message": "Success get one product"
+}
+```
+#### 4. **Update Product**
+
+-   **Endpoint:** `/products/:id`
+-   **Method:** `PUT`
+-   **Description:** Update an existing product by ID.
+-   **URL Parameters:**
+    -   `id` (required): The ID of the product.
+-   **Request Body:**
+   ```bash
+{
+"name":  "alfamaret coffee",
+"description":  "minuman",
+"images":  ["photo-coffee.png"],
+"price":  10000,
+"qty":  100,
+"category":  "66a1de179d50bebe3af45595"
+}
+```
+**Response:**
+
+-   **Status Code:** `200 OK`
+-   **Body:**
+   ```bash
+{
+    "data": {
+        "_id": "66b69a7010d8375133d533f5",
+        "name": "alfamaret coffee",
+        "description": "minuman",
+        "images": [
+            "photo-coffee.png"
+        ],
+        "price": 10000,
+        "qty": 100,
+        "category": "66a1de179d50bebe3af45595",
+        "createdAt": "2024-08-09T22:38:40.544Z",
+        "updatedAt": "2024-08-09T22:49:57.060Z",
+        "slug": "indomaret-coffee",
+        "__v": 0
+    },
+    "message": "Success update product"
+}
+```
+
+#### 5. **Delete Product**
+
+-   **Endpoint:** `/products/:id`
+-   **Method:** `DELETE`
+-   **Description:** Delete a product by ID.
+-   **URL Parameters:**
+    -   `id` (required): The ID of the product.
+  
+	**Response:**
+
+-   **Status Code:** `200 OK`
+-   **Body:**
+
+  ```bash
+{
+    "data": {
+        "_id": "66b69a7010d8375133d533f5",
+        "name": "alfamaret coffee",
+        "description": "minuman",
+        "images": [
+            "photo-coffee.png"
+        ],
+        "price": 10000,
+        "qty": 100,
+        "category": "66a1de179d50bebe3af45595",
+        "createdAt": "2024-08-09T22:38:40.544Z",
+        "updatedAt": "2024-08-09T22:49:57.060Z",
+        "slug": "indomaret-coffee",
+        "__v": 0
+    },
+    "message": "Success delete product"
+}
+```
+
+## Categories
+
+#### 1. **Get All Categories**
+
+-   **Endpoint:** `/categories`
+-   **Method:** `GET`
+-   **Description:** Retrieve a list of all category.
+-   **Response:**
+    -   **Status Code:** `200 OK`
+    -   **Body:**
+ ```bash
+{
+    "data": [
+        {
+            "_id": "66a21dc33b2ea2cf2b1a2bae",
+            "name": "tea",
+            "createdAt": "2024-07-25T09:41:23.927Z",
+            "updatedAt": "2024-07-25T09:41:23.927Z",
+            "__v": 0
+        },
+        {
+            "_id": "66a21e463b2ea2cf2b1a2bb4",
+            "name": "coffee",
+            "createdAt": "2024-07-25T09:43:34.282Z",
+            "updatedAt": "2024-07-25T09:43:34.282Z",
+            "__v": 0
+        }
+    ],
+    "message": "Success get all products"
+}
+```
+#### 2. **Create Categories**
+
+-   **Endpoint:** `/categories`
+-   **Method:** `POST`
+-   **Description:** Create a new category.
+-   **Request Body:**
+ ```bash
+{
+"name":  "susu"
+}
+```
+
+**Response:**
+
+-   **Status Code:** `201 Created`
+-   **Body:**
+ ```bash
+{
+    "data": {
+        "name": "susu",
+        "_id": "66b6afdd254710def81ad8cd",
+        "createdAt": "2024-08-10T00:10:05.436Z",
+        "updatedAt": "2024-08-10T00:10:05.436Z",
+        "__v": 0
+    },
+    "message": "Success create product"
+}
+```
+
+#### 3. **Get Categories by ID**
+
+-   **Endpoint:** `/categories/:id`
+-   **Method:** `GET`
+-   **Description:** Retrieve details of a specific category by ID.
+-   **URL Parameters:**
+    -   `id` (required): The ID of the .
+-   **Response:**
+    -   **Status Code:** `200 OK`
+    -   **Body:**
+   ```bash
+{
+    {
+    "data": {
+        "_id": "66b6afdd254710def81ad8cd",
+        "name": "susu",
+        "createdAt": "2024-08-10T00:10:05.436Z",
+        "updatedAt": "2024-08-10T00:10:05.436Z",
+        "__v": 0
+    },
+    "message": "Success get one product"
+}
+}
+```
+#### 4. **Update Categories **
+
+-   **Endpoint:** `/categories/:id`
+-   **Method:** `PUT`
+-   **Description:** Update an existing category by ID.
+-   **URL Parameters:**
+    -   `id` (required): The ID of the .
+-   **Request Body:**
+   ```bash
+{
+"name":  "milk"
+}
+```
+**Response:**
+
+-   **Status Code:** `200 OK`
+-   **Body:**
+   ```bash
+{
+    "data": {
+        "_id": "66b6afdd254710def81ad8cd",
+        "name": "milk",
+        "createdAt": "2024-08-10T00:10:05.436Z",
+        "updatedAt": "2024-08-10T00:16:12.037Z",
+        "__v": 0
+    },
+    "message": "Success update product"
+}
+```
+
+#### 5. **Delete Categories **
+
+-   **Endpoint:** `/categories/:id`
+-   **Method:** `DELETE`
+-   **Description:** Delete a category by ID.
+-   **URL Parameters:**
+    -   `id` (required): The ID of the .
+  
+	**Response:**
+
+-   **Status Code:** `200 OK`
+-   **Body:**
+
+  ```bash
+{
+    "data": {
+        "_id": "66b6afdd254710def81ad8cd",
+        "name": "milk",
+        "createdAt": "2024-08-10T00:10:05.436Z",
+        "updatedAt": "2024-08-10T00:16:12.037Z",
+        "__v": 0
+    },
+    "message": "Success delete product"
+}
+```
 
 ## Feedback
 

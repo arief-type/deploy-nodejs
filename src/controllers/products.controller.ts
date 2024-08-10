@@ -12,12 +12,6 @@ const createValidationSchema = Yup.object().shape({
   category: Yup.string().required(),
 })
 
-// interface IPaginationQuery {
-//   limit: number;
-//   page: number;
-//   search?: string;
-// }
-
 export default {
   async create(req: Request, res: Response) {
     try {
